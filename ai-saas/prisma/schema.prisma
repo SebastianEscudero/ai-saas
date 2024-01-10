@@ -18,3 +18,13 @@ model UserApiLimit {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model UserSubscription {
+  id String @id @default(cuid())
+  userId String @unique
+  subscriptionId String
+  mercadoPagoCustomerId String? @unique @map(name: "mercado_pago_customer_id")
+  mercadoPagoSubscriptionId String? @unique @map(name: "mercado_pago_subscription_id")
+  mercadoPagoPriceId String? @unique @map(name: "mercado_pago_price_id")
+  mercadoPagoCurrentPeriodEnd DateTime? @map(name: "mercado_pago_current_period_end")
+}
