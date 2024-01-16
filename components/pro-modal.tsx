@@ -70,10 +70,10 @@ export const ProModal = () => {
     
     const onSubscribe = async () => {
         try {
-        //   setLoading(true);
+          setLoading(true);
           const { data } = await axios.post("/api/mercadoPago");
           console.log(data);
-          window.location.href = data.url;
+          window.location.href = data;
         } catch (error) {
             console.log(error);
         } finally {
