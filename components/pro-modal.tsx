@@ -5,7 +5,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Badge } from "./ui/badge";
 import { Check, Code, Image, MessageSquare, Music, VideoIcon, Zap } from "lucide-react";
 import { Card } from "./ui/card";
-import { cn } from "@/lib/utils";
+import { absoluteUrl, cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -48,32 +48,13 @@ const tools = [
 export const ProModal = () => {
     const proModal = useProModal();
     const [loading, setLoading] = useState(false)
-    // const [url, setUrl] = useState<null | string>(null)
-
-
-    // useEffect(() => {
-    //     const generateLink = async () => {
-    //         setLoading(true)
-
-    //         try {
-    //             const { data } = await axios.post("/api/mercadoPago")
-    //             setUrl(data.url)
-    //         } catch(error) {
-    //             console.log(error)
-    //         }
-
-    //         setLoading(false)
-    //     };
-    //     generateLink()
-
-    // },[])
     
     const onSubscribe = async () => {
         try {
           setLoading(true);
           const { data } = await axios.post("/api/mercadoPago");
           console.log(data);
-          window.location.href = data;
+        //   window.location.href = data.init_point;
         } catch (error) {
             console.log(error);
         } finally {

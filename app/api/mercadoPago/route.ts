@@ -2,11 +2,8 @@ import { auth, currentUser } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 import prismadb from "@/lib/prismadb";
 import { absoluteUrl } from "@/lib/utils";
-import { MercadoPagoConfig, Preference } from "mercadopago";
 
 const settingsUrl = absoluteUrl("/settings");
-
-const client = new MercadoPagoConfig({ accessToken: process.env.MERCADOPAGO_API_KEY!});
 
 export async function POST() {
     try {
@@ -28,34 +25,39 @@ export async function POST() {
             console.log("falta agregar la lógica para actualizar la suscripción")
             }
 
-        // esto es una prueba, necesito ocupar la subscription API de mercado pago para indicar la frecuencia mensual
-        const preferences = await new Preference(client).create({
-            body: {
-                items: [
-                    {
-                        id: 'Pro Modal',
-                        title: "Genius Pro Plan",
-                        unit_price: 20000,
-                        quantity: 1,
-                        currency_id: "CLP"
-                    }
-                ],
-                payer: {
-                    email: user.emailAddresses[0].emailAddress
-                },
-                back_urls: {
-                    success: settingsUrl,
-                    failure: settingsUrl,
-                    pending: settingsUrl,
-                },
-                auto_return: "approved",
-                // external_reference: userId,
-                notification_url: `${absoluteUrl("/api/webhook/route.ts")}`
-            }
-        })
+        // aqui va la lógica para crear la suscripción
+        // const urlReal = 'https://www.mercadopago.cl/subscriptions/checkout?preapproval_plan_id=2c9380848d22f7a4018d28d89eef0337'
+        // const url = "https://www.mercadopago.cl/subscriptions/checkout?preapproval_plan_id=2c9380848d22f7a4018d28ed466c0343"
+        // la url de arriba es una url de una test account de mercado pago
 
-        const response = await preferences.sandbox_init_point;
-        return new NextResponse(JSON.stringify(response), {status: 200});
+        const response = await fetch('https://api.mercadopago.com/preapproval_plan', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${process.env.MERCADO_PAGO_API_KEY_TEST}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "reason": "Genius Pro Plan",
+                "external_reference": userId,
+                "payer_email": user.emailAddresses[0].emailAddress,
+                "notificacion_url": "https://3644-152-230-201-53.ngrok-free.app/api/webhook", 
+                "auto_recurring": {
+                    "frequency": 1,
+                    "frequency_type": "months",
+                    "start_date": new Date().toISOString(),
+                    "transaction_amount": 19900,
+                    "currency_id": "CLP"
+                },
+                "back_url": "https://www.mercadopago.cl", // Reemplazar con la URL de la pagina web
+                "status": "active",
+            })
+        });
+
+        const data = await response.json();
+        
+        return new NextResponse(JSON.stringify(data), {status: 200});
+
+
         } catch (error) {
             console.log("[MERCADOPAGO_ERROR]", error);
             return new NextResponse("Internal error", {status: 500});
