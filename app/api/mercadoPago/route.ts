@@ -40,7 +40,7 @@ export async function POST() {
                 "reason": "Genius Pro Plan",
                 "external_reference": userId,
                 "payer_email": user.emailAddresses[0].emailAddress,
-                "notificacion_url": "https://3644-152-230-201-53.ngrok-free.app/api/webhook", 
+                "notificacion_url": "https://e601-152-230-201-53.ngrok-free.app/api/webhook", 
                 "auto_recurring": {
                     "frequency": 1,
                     "frequency_type": "months",

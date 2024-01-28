@@ -54,7 +54,7 @@ export const ProModal = () => {
           setLoading(true);
           const { data } = await axios.post("/api/mercadoPago");
           console.log(data);
-        //   window.location.href = data.init_point;
+          window.location.href = data.init_point;
         } catch (error) {
             console.log(error);
         } finally {
