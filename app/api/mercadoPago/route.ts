@@ -39,7 +39,7 @@ export async function POST() {
                 "reason": "Genius Pro Plan",
                 "external_reference": userId,
                 "payer_email": user.emailAddresses[0].emailAddress,
-                "notificacion_url": "https://1c58-152-230-201-53.ngrok-free.app/api/webhook", 
+                "notificacion_url": "https://ai-saas-brown-one.vercel.app/api/webhook", 
                 "auto_recurring": {
                     "frequency": 1,
                     "frequency_type": "months",
@@ -47,7 +47,7 @@ export async function POST() {
                     "transaction_amount": 19900,
                     "currency_id": "CLP"
                 },
-                "back_url": "https://www.mercadopago.cl", // Reemplazar con la URL de la pagina web
+                "back_url": "https://ai-saas-brown-one.vercel.app/settings", // Reemplazar con la URL de la pagina web
                 "status": "active",
             })
         });
