@@ -10,23 +10,23 @@ const testimonials = [
         description: "I love Genius. It's the best AI tool I've ever used."
     },
     {
-        name: "Sebastian",
-        avatar: "S",
-        title: "Software Engineer",
-        description: "I love Genius. It's the best AI tool I've ever used."
+        name: "Michael",
+        avatar: "M",
+        title: "Music Producer",
+        description: "Genius is an incredible AI tool for music generation. It helps me create unique and inspiring melodies effortlessly."
     },
     {
-        name: "Sebastian",
-        avatar: "S",
-        title: "Software Engineer",
-        description: "I love Genius. It's the best AI tool I've ever used."
+        name: "David",
+        avatar: "D",
+        title: "Software Developer",
+        description: "As a developer, Genius is my go-to AI tool for code generation. It saves me time and helps me write high-quality code."
     },
     {
-        name: "Sebastian",
+        name: "Sophia",
         avatar: "S",
-        title: "Software Engineer",
-        description: "I love Genius. It's the best AI tool I've ever used."
-    }
+        title: "Video Editor",
+        description: "Genius is a game-changer for video editing. It automates repetitive tasks and enhances the overall editing process."
+    },
 ]
 
 export const LandingContent = () => {
