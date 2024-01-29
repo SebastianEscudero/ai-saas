@@ -3,6 +3,7 @@
 import { Zap } from "lucide-react";
 import { Button } from "./ui/button";
 import axios from "axios";
+import { useState } from "react";
 
 interface SubscriptionButtonProps {
     isPro: boolean;
@@ -11,13 +12,20 @@ interface SubscriptionButtonProps {
 export const SubscriptionButton = ({
     isPro = false
 }: SubscriptionButtonProps) => {
+    const [loading, setLoading] = useState(false)
+
     const onClick = async () => {
         try {
-            const response = await axios.get("/api/subscription");
+            const { data } = await axios.post("/api/mercadoPago");
+            console.log(data);
+            window.location.href = data.init_point;
         } catch (error) {
-            console.log("Billing error: ", error);
+            console.log(error);
+        } finally {
+            setLoading(false);
         }
     }
+    
     return (
         <Button variant={isPro ? "default" : "premium"} onClick={onClick}>
             {isPro ? "Pause Subscription" : "Upgrade"}

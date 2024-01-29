@@ -27,9 +27,6 @@ export async function POST(request: NextRequest) {
       return new NextResponse(`User Id is required`, { status: 400 })
     }
 
-    console.log(payment.response.external_reference)
-    console.log(payment.response.payer.id)
-
     console.log(payment.response.date_approved)
 
     const startDate = new Date(
